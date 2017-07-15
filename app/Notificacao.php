@@ -14,7 +14,7 @@ class Notificacao extends Model
         'usuario_id',
         'tipo_notificacao_id',
         'visualizado'
-    ]
+    ];
     // protected $hidden   = [];
     // protected $postgisFields = [];
 

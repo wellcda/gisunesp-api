@@ -18,5 +18,11 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::get('/teste', function (Request $request) {
-    return 'vai!';
+    return '<img src="https://ffxiv.consolegameswiki.com/mediawiki/images/thumb/c/ca/Lalafell_plainsfolk.jpg/300px-Lalafell_plainsfolk.jpg">';
 });
+
+Route::get('/problema', 'ProblemaController@show');
+Route::post('/problema', 'ProblemaController@store');
+
+Route::get('/tipoproblema', 'TipoProblemaController@show');
+Route::post('/tipoproblema', 'TipoProblemaController@store');

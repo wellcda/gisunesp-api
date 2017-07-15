@@ -17,8 +17,12 @@ class Problema extends Model
         'descricao',
         'geom',
         'resolvido'
-    ]
+    ];
     // protected $hidden   = [];
     // protected $postgisFields = [];
+
+    public function tipoProblema() {
+        return $this->belongsTo('App\TipoProblema');
+    }
 
 }

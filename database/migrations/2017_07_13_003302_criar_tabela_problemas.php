@@ -13,10 +13,11 @@ class CriarTabelaProblemas extends Migration
      */
     public function up()
     {
-        Schema::create('tipos_problemas' , function(Blueprint $table) {
+        Schema::create('tipos_problema' , function(Blueprint $table) {
             $table->increments('id');
             $table->text('descricao');
             $table->string('tipo_geom');
+            $table->timestamps();
         });
 
         Schema::create('problemas' , function(Blueprint $table) {
@@ -26,8 +27,8 @@ class CriarTabelaProblemas extends Migration
             $table->text('descricao');
             $table->string('geom');
             $table->boolean('resolvido');
-
-            $table->foreign('tipo_problema_id')->references('id')->on('tipos_problemas');
+            $table->timestamps();
+            $table->foreign('tipo_problema_id')->references('id')->on('tipos_problema');
         });
     }
 
@@ -42,7 +43,7 @@ class CriarTabelaProblemas extends Migration
             $table->dropForeign(['tipo_problema_id']);
         });
 
-        Schema::drop('tipos_problemas');
+        Schema::drop('tipos_problema');
         Schema::drop('problemas');
     }
 }

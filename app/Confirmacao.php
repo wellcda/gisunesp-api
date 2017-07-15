@@ -13,6 +13,6 @@ class Confirmacao extends Model
         'problema_id',
         'usuario_id',
         'tipo_confirmacao'
-    ]
+    ];
     // protected $hidden   = [];
 }

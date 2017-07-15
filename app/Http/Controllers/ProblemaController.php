@@ -23,4 +23,9 @@ class ProblemaController extends Controller
     {
     }
 
+    public function showAll() {
+        $problemas = Problema::all();
+        return $this->showResponse($problemas);
+    }
+
 }

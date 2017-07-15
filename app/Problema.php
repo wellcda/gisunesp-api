@@ -4,6 +4,8 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 // use Phaza\LaravelPostgis\Eloquent\PostgisTrait;
+use DB;
+
 
 class Problema extends Model
 {
@@ -18,11 +20,15 @@ class Problema extends Model
         'geom',
         'resolvido'
     ];
-    // protected $hidden   = [];
-    // protected $postgisFields = [];
+    protected $hidden   = ['geom'];
+    protected $postgisFields = ['geom'];
 
     public function tipoProblema() {
         return $this->belongsTo('App\TipoProblema');
+    }
+
+    public function saveWithLatLon($params) {
+        // DB::table('problemas')->select()
     }
 
 }

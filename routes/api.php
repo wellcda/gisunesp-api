@@ -21,8 +21,9 @@ Route::get('/teste', function (Request $request) {
     return '<img src="https://ffxiv.consolegameswiki.com/mediawiki/images/thumb/c/ca/Lalafell_plainsfolk.jpg/300px-Lalafell_plainsfolk.jpg">';
 });
 
-Route::get('/problema', 'ProblemaController@show');
+Route::get('/problema/{id}', 'ProblemaController@show');
+Route::get('/problemas', 'ProblemaController@showAll');
 Route::post('/problema', 'ProblemaController@store');
 
-Route::get('/tipoproblema', 'TipoProblemaController@show');
+Route::get('/tipoproblema/{id}', 'TipoProblemaController@show');
 Route::post('/tipoproblema', 'TipoProblemaController@store');

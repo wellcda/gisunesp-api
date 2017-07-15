@@ -17,7 +17,6 @@ class Problema extends Model
         'usuario_id',
         'tipo_problema_id',
         'descricao',
-        'geom',
         'resolvido'
     ];
     protected $hidden   = ['geom'];
@@ -27,8 +26,22 @@ class Problema extends Model
         return $this->belongsTo('App\TipoProblema');
     }
 
-    public function saveWithLatLon($params) {
-        // DB::table('problemas')->select()
+    public static function storeWithLatLon($params) {
+        $problema =  (Object) [
+            'usuario'   => $params['usuario_id'],
+            'tipo'      => $params['tipo_problema_id'],
+            'descricao' => $params['descricao'],
+            'resolvido' => 'false',
+            'x'         => $params['lon'],
+            'y'         => $params['lat']
+        ];
+
+        return DB::insert("INSERT INTO problemas(usuario_id, tipo_problema_id, descricao, resolvido, created_at, updated_at, geom)
+            values ($problema->usuario, $problema->tipo, '$problema->descricao', $problema->resolvido, now(), now(), ST_MakePoint($problema->x, $problema->y));");
+    }
+
+    public static function showAllWithLatLon() {
+        return DB::select("SELECT descricao, ST_X(geom::geometry) as lon, ST_Y(geom::geometry) as lat FROM problemas WHERE geom is not null");
     }
 
 }

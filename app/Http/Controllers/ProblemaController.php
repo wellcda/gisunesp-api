@@ -24,8 +24,11 @@ class ProblemaController extends Controller
     }
 
     public function showAll() {
-        $problemas = Problema::all();
-        return $this->showResponse($problemas);
+        return $this->showResponse(Problema::showAllWithLatLon());
+    }
+
+    public function storeFromLatLon(Request $request) {
+        return $this->showResponse(Problema::storeWithLatLon($request->all()));
     }
 
 }

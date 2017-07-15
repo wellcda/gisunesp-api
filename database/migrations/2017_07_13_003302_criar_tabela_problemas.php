@@ -25,11 +25,12 @@ class CriarTabelaProblemas extends Migration
             $table->integer('usuario_id');
             $table->integer('tipo_problema_id');
             $table->text('descricao');
-            $table->string('geom');
             $table->boolean('resolvido');
             $table->timestamps();
             $table->foreign('tipo_problema_id')->references('id')->on('tipos_problema');
         });
+
+        DB::statement("ALTER TABLE problemas ADD COLUMN geom GEOGRAPHY(Point, 4326)");
     }
 
     /**

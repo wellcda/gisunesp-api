@@ -23,7 +23,7 @@ Route::get('/teste', function (Request $request) {
 
 Route::get('/problema/{id}', 'ProblemaController@show');
 Route::get('/problemas', 'ProblemaController@showAll');
-Route::post('/problema', 'ProblemaController@store');
+Route::post('/problema', 'ProblemaController@storeFromLatLon');
 
 Route::get('/tipoproblema/{id}', 'TipoProblemaController@show');
 Route::post('/tipoproblema', 'TipoProblemaController@store');

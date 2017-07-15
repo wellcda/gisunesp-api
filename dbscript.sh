@@ -45,7 +45,7 @@ else
   make  > /dev/null 2>&1;
   sudo make install  > /dev/null 2>&1;
   sudo ldconfig
-  sudo -u postgres psql --dbname=sigarteris --command="CREATE EXTENSION adminpack;CREATE EXTENSION postgis;CREATE EXTENSION postgis_topology;"  > /dev/null 2>&1;
+  sudo -u postgres psql --dbname=sigunesp --command="CREATE EXTENSION adminpack;CREATE EXTENSION postgis;CREATE EXTENSION postgis_topology;"  > /dev/null 2>&1;
   sudo make comments-install  > /dev/null 2>&1;
   sudo ln -sf /usr/share/postgresql-common/pg_wrapper /usr/local/bin/shp2pgsql
   sudo ln -sf /usr/share/postgresql-common/pg_wrapper /usr/local/bin/pgsql2shp

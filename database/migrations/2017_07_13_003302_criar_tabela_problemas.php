@@ -38,6 +38,10 @@ class CriarTabelaProblemas extends Migration
      */
     public function down()
     {
+        Schema::table('problemas' , function(Blueprint $table) {
+            $table->dropForeign(['tipo_problema_id']);
+        });
+
         Schema::drop('tipos_problemas');
         Schema::drop('problemas');
     }

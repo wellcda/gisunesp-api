@@ -1,4 +1,4 @@
-<?php
+cons<?php
 
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
@@ -41,8 +41,8 @@ class CriarTabelaProblemas extends Migration
         Schema::table('problemas' , function(Blueprint $table) {
             $table->dropForeign(['tipo_problema_id']);
         });
-
-        Schema::drop('tipos_problemas');
-        Schema::drop('problemas');
+        
+        DB::statement('DROP TABLE IF EXISTS tipos_problemas');
+        DB::statement('DROP TABLE IF EXISTS problemas');
     }
 }

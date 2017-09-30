@@ -10,7 +10,6 @@ class TipoProblema extends Model
     public $timestamps = true;
     protected $guarded  = ['id'];
     protected $fillable = [
-        'nome',
         'descricao',
         'tipo_geom'
     ];

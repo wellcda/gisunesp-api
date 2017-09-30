@@ -44,7 +44,7 @@ class CriarTabelaProblemas extends Migration
             $table->dropForeign(['tipo_problema_id']);
         });
 
-        DB::statement('DROP TABLE IF EXISTS tipos_problemas');
+        DB::statement('DROP TABLE IF EXISTS tipos_problema');
         DB::statement('DROP TABLE IF EXISTS problemas');
     }
 }

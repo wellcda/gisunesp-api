@@ -16,9 +16,9 @@ class CriarTabelaConfirmacoes extends Migration
          Schema::create('confirmacoes' , function(Blueprint $table) {
             $table->increments('id');
             $table->integer('usuario_id');
-            $table->integer('tipo_confirmacao_id');
-            $table->text('descricao');
-
+            $table->integer('problema_id');
+            $table->integer('tipo_confirmacao');
+            $table->timestamps();
             // $table->foreign('tipo_problema_id')->references('id')->on('tipos_problemas');
         });
     }

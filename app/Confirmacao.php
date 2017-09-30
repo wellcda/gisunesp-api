@@ -14,5 +14,10 @@ class Confirmacao extends Model
         'usuario_id',
         'tipo_confirmacao'
     ];
+
+    public function Problema($value='')
+    {
+    	$this->belongsTo('App\Problema');
+    }
     // protected $hidden   = [];
 }

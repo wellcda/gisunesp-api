@@ -23,6 +23,11 @@ class ProblemaController extends Controller
     {
     }
 
+    public function showComConfirmacao($id)
+    {
+        return $this->showResponse(Problema::with('confirmacao')->find($id));
+    }
+
     public function showAll() {
         return $this->showResponse(Problema::showAllWithLatLon());
     }

@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Confirmacao extends Model
 {
     protected $table   = 'confirmacoes';
-    public $timestamps = true;
+    public $timestamps = false;
     protected $guarded  = ['id'];
     protected $fillable = [
         'problema_id',
@@ -15,7 +15,7 @@ class Confirmacao extends Model
         'tipo_confirmacao'
     ];
 
-    public function Problema($value='')
+    public function problema()
     {
     	$this->belongsTo('App\Problema');
     }

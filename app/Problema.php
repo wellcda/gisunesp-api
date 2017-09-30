@@ -31,14 +31,6 @@ class Problema extends Model
         return $this->hasMany('App\Confirmacao');
     }
 
-    public function confirmacoesPositivas() {
-        return $this->hasMany('App\Confirmacao')::where('tipo_confirmacao', '0');
-    }
-
-    public function confirmacoesNegativas() {
-        return $this->hasMany('App\Confirmacao')::where('tipo_confirmacao', '1');
-    }
-
     public static function storeWithLatLon($params) {
         $problema =  (Object) [
             'usuario'   => $params['usuario_id'],

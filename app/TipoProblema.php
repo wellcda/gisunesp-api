@@ -13,7 +13,11 @@ class TipoProblema extends Model
         'nome',
         'descricao',
         'tipo_geom'
-    ]
+    ];
     // protected $hidden   = [];
 
+    public function problemas()
+    {
+        return $this->hasMany('App\Problema');
+    }
 }

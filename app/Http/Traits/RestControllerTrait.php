@@ -41,14 +41,15 @@ trait RestControllerTrait
     {
         $m = self::MODEL;
         try {
-            $v = \Validator::make($request->all(), $this->validationRules);
-            if ($v->fails()) {
-                throw new \Exception("ValidationException");
-            }
+            // $v = \Validator::make($request->all(), $this->validationRules);
+            // if ($v->fails()) {
+            //     throw new \Exception("ValidationException");
+            // }
             $data = $m::create($request->all());
             return $this->createdResponse($data);
         } catch(\Exception $ex) {
-            $data = ['form_validations' => $v->errors(), 'exception' => $ex->getMessage()];
+            // $data = ['form_validations' => $v->errors(), 'exception' => $ex->getMessage()];
+            $data = ['exception' => $ex->getMessage()];
             return $this->clientErrorResponse($data);
         }
     }

@@ -14,7 +14,7 @@ sudo sed -i "/^#listen_addresses/i listen_addresses='*'" /etc/postgresql/9.4/mai
 
 # Create DB
 sudo -u postgres psql --command="CREATE USER pgadmin WITH PASSWORD '123456';"  > /dev/null 2>&1;
-sudo -u postgres psql --command="CREATE DATABASE sigunesp OWNER pgadmin;"  > /dev/null 2>&1;
+sudo -u postgres psql --command="CREATE DATABASE gisunesp OWNER pgadmin;"  > /dev/null 2>&1;
 
 # PostGIS
 # ==========================================
@@ -45,7 +45,7 @@ else
   make  > /dev/null 2>&1;
   sudo make install  > /dev/null 2>&1;
   sudo ldconfig
-  sudo -u postgres psql --dbname=sigunesp --command="CREATE EXTENSION adminpack;CREATE EXTENSION postgis;CREATE EXTENSION postgis_topology;"  > /dev/null 2>&1;
+  sudo -u postgres psql --dbname=gisunesp --command="CREATE EXTENSION adminpack;CREATE EXTENSION postgis;CREATE EXTENSION postgis_topology;"  > /dev/null 2>&1;
   sudo make comments-install  > /dev/null 2>&1;
   sudo ln -sf /usr/share/postgresql-common/pg_wrapper /usr/local/bin/shp2pgsql
   sudo ln -sf /usr/share/postgresql-common/pg_wrapper /usr/local/bin/pgsql2shp

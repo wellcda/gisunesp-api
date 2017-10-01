@@ -37,7 +37,13 @@ class ProblemaController extends Controller
     }
 
     public function storeProblema(Request $request) {
-        return $this->showResponse(Problema::storeProblema($request->all()));
+        try {
+            return $this->createdResponse(Problema::storeProblema($request->all()));
+        } catch (\Exception $ex) {
+            $data = ['exception' => $ex->getMessage()];
+            return $this->clientErrorResponse($data)
+        }
+        
     }
 
 }

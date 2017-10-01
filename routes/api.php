@@ -28,5 +28,5 @@ Route::get('/problema/{id}/confirmacoes', 	'ConfirmacaoController@showConfirmaca
 Route::post('/problema/{id}/confirmacao', 	'ConfirmacaoController@store');
 
 Route::get('/tipoproblema/{id}', 	'TipoProblemaController@show');
-Route::get('/tiposproblema', 		'TipoProblemaController@showTiposProblema');
+Route::get('/tiposproblema', 		'TipoProblemaController@index');
 Route::post('/tipoproblema', 		'TipoProblemaController@store');

@@ -22,9 +22,4 @@ class TipoProblemaController extends Controller
     public function __construct()
     {
     }
-
-    public function showTiposProblema() {
-        return $this->showResponse(TipoProblema::all());
-    }
-
 }

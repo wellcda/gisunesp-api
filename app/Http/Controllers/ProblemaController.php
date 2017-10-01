@@ -13,6 +13,9 @@ class ProblemaController extends Controller
 {
 
     const MODEL = 'App\Problema';
+    const CONFIRMACOES_POSITIVAS = 0;
+    const CONFIRMACOES_NEGATIVAS = 1;
+
     use RestControllerTrait;
 
     /**
@@ -24,20 +27,23 @@ class ProblemaController extends Controller
     {
     }
 
-    public function showComConfirmacao($id)
+    public function showProblema($id)
     {   
-        $problema = Problema::find($id);
-        $problema->votos_pos = Confirmacao::where('problema_id', $id)->where('tipo_confirmacao', 0)->count();
-        $problema->votos_neg = Confirmacao::where('problema_id', $id)->where('tipo_confirmacao', 1)->count();
-        return $this->showResponse($problema);
+        return $this->showResponse(Problema::showProblema($id));
     }
 
-    public function showAll() {
-        return $this->showResponse(Problema::showAllWithLatLon());
+    public function showProblemas() {
+        return $this->showResponse(Problema::showProblema());
     }
 
-    public function storeFromLatLon(Request $request) {
-        return $this->showResponse(Problema::storeWithLatLon($request->all()));
+    public function storeProblema(Request $request) {
+        try {
+            return $this->createdResponse(Problema::storeProblema($request->all()));
+        } catch (\Exception $ex) {
+            $data = ['exception' => $ex->getMessage()];
+            return $this->clientErrorResponse($data)
+        }
+        
     }
 
 }

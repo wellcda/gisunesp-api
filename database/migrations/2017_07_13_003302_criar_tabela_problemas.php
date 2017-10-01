@@ -1,4 +1,4 @@
-cons<?php
+<?php
 
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
@@ -22,9 +22,10 @@ class CriarTabelaProblemas extends Migration
 
         Schema::create('problemas' , function(Blueprint $table) {
             $table->increments('id');
+            $table->string('titulo');
             $table->integer('usuario_id');
             $table->integer('tipo_problema_id');
-            $table->text('descricao');
+            $table->text('descricao')->nullable();
             $table->boolean('resolvido');
             $table->timestamps();
             $table->foreign('tipo_problema_id')->references('id')->on('tipos_problema');

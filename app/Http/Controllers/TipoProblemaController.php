@@ -23,7 +23,7 @@ class TipoProblemaController extends Controller
     {
     }
 
-    public function showAll() {
+    public function showTiposProblema() {
         return $this->showResponse(TipoProblema::all());
     }
 

@@ -27,24 +27,17 @@ class ProblemaController extends Controller
     {
     }
 
-    public function showComConfirmacao($id)
+    public function showProblema($id)
     {   
-        $problema            = Problema::with('confirmacao')->find($id);
-        $confirmacoes        = $problema->confirmacao->groupBy('tipo_confirmacao');
-        $problema->votos_pos = $confirmacoes[self::CONFIRMACOES_POSITIVAS]->count();
-        $problema->votos_neg = $confirmacoes[self::CONFIRMACOES_NEGATIVAS]->count();
-
-        unset($problema->confirmacao);
-
-        return $this->showResponse($problema);
+        return $this->showResponse(Problema::showProblema($id));
     }
 
-    public function showAll() {
-        return $this->showResponse(Problema::showAllWithLatLon());
+    public function showProblemas() {
+        return $this->showResponse(Problema::showProblema());
     }
 
-    public function storeFromLatLon(Request $request) {
-        return $this->showResponse(Problema::storeWithLatLon($request->all()));
+    public function storeProblema(Request $request) {
+        return $this->showResponse(Problema::storeProblema($request->all()));
     }
 
 }

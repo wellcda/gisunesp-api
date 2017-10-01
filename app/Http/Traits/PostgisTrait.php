@@ -25,4 +25,9 @@ trait PostgisTrait
                                   ST_Y('".$geom1."') as latitude
             ")[0];
     }
+
+    public function createPointFromLatLon($lat, $lon)
+    {
+        return DB::select("SELECT ST_MakePoint($lat, $lon)")
+    }
 }

@@ -21,12 +21,12 @@ Route::get('/teste', function (Request $request) {
     return '<img src="https://ffxiv.consolegameswiki.com/mediawiki/images/thumb/c/ca/Lalafell_plainsfolk.jpg/300px-Lalafell_plainsfolk.jpg">';
 });
 
-Route::get('/problema/{id}', 'ProblemaController@showComConfirmacao');
-Route::get('/problema/{id}/confirmacoes', 'ConfirmacaoController@showConfirmacaoPorProblema');
-Route::post('/problema/{id}/confirmacao', 'ConfirmacaoController@store');
-Route::get('/problemas', 'ProblemaController@showAll');
-Route::post('/problema', 'ProblemaController@storeFromLatLon');
+Route::get('/problema/{id}', 				'ProblemaController@showProblema');
+Route::get('/problemas', 					'ProblemaController@showProblemas');
+Route::post('/problema', 					'ProblemaController@storeProblema');
+Route::get('/problema/{id}/confirmacoes', 	'ConfirmacaoController@showConfirmacaoPorProblema');
+Route::post('/problema/{id}/confirmacao', 	'ConfirmacaoController@store');
 
-Route::get('/tipoproblema/{id}', 'TipoProblemaController@showAll');
-Route::get('/tiposproblema', 'TipoProblemaController@showAll');
-Route::post('/tipoproblema', 'TipoProblemaController@store');
+Route::get('/tipoproblema/{id}', 	'TipoProblemaController@show');
+Route::get('/tiposproblema', 		'TipoProblemaController@showTiposProblema');
+Route::post('/tipoproblema', 		'TipoProblemaController@store');

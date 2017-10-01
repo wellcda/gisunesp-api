@@ -41,7 +41,7 @@ class ProblemaController extends Controller
             return $this->createdResponse(Problema::storeProblema($request->all()));
         } catch (\Exception $ex) {
             $data = ['exception' => $ex->getMessage()];
-            return $this->clientErrorResponse($data)
+            return $this->clientErrorResponse($data);
         }
         
     }

@@ -47,13 +47,19 @@ class Problema extends Model
     }
 
     public static function showAllWithLatLon() {
-        return DB::select("SELECT p.id, p.descricao, ST_X(geom::geometry) as lon, ST_Y(geom::geometry) as lat,
-            count(CASE WHEN tipo_confirmacao = 0 THEN 1 ELSE NULL END) as votos_pos, count(CASE WHEN tipo_confirmacao = 1 THEN 1 ELSE NULL END) as votos_neg
-            FROM problemas p
-            LEFT JOIN confirmacoes c on c.problema_id = p.id
-            WHERE geom is not null
-            GROUP by p.id, p.descricao
-            ORDER BY p.id");
+        return DB::select("SELECT p.id as problema_id, 
+                    p.usuario_id, 
+                    p.descricao, 
+                    ST_X(geom::geometry) as lon, 
+                    ST_Y(geom::geometry) as lat,
+                    count(CASE WHEN tipo_confirmacao = 0 THEN 1 ELSE NULL END) as votos_pos, 
+                    count(CASE WHEN tipo_confirmacao = 1 THEN 1 ELSE NULL END) as votos_neg
+                FROM problemas p
+                LEFT JOIN confirmacoes c on c.problema_id = p.id
+                WHERE geom is not null
+                GROUP by p.id, p.descricao
+                ORDER BY p.id
+            ");
     }
 
 }

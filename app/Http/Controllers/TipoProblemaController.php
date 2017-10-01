@@ -6,7 +6,7 @@ use App\Http\Traits\RestControllerTrait;
 use Illuminate\Http\Response;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\TipoProblema as Problema;
+use App\TipoProblema as TipoProblema;
 
 class TipoProblemaController extends Controller
 {
@@ -21,6 +21,10 @@ class TipoProblemaController extends Controller
      */
     public function __construct()
     {
+    }
+
+    public function showAll() {
+        return $this->showResponse(TipoProblema::all());
     }
 
 }

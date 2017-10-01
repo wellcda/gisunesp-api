@@ -47,7 +47,8 @@ class Problema extends Model
     }
 
     public static function showAllWithLatLon() {
-        return DB::select("SELECT p.id as problema_id, 
+        return DB::select("SELECT 
+                    p.id as problema_id, 
                     p.usuario_id, 
                     p.descricao, 
                     ST_X(geom::geometry) as lon, 

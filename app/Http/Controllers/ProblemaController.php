@@ -13,6 +13,9 @@ class ProblemaController extends Controller
 {
 
     const MODEL = 'App\Problema';
+    const CONFIRMACOES_POSITIVAS = 0;
+    const CONFIRMACOES_NEGATIVAS = 1;
+
     use RestControllerTrait;
 
     /**
@@ -26,9 +29,13 @@ class ProblemaController extends Controller
 
     public function showComConfirmacao($id)
     {   
-        $problema = Problema::find($id);
-        $problema->votos_pos = Confirmacao::where('problema_id', $id)->where('tipo_confirmacao', 0)->count();
-        $problema->votos_neg = Confirmacao::where('problema_id', $id)->where('tipo_confirmacao', 1)->count();
+        $problema            = Problema::with('confirmacao')->find($id);
+        $confirmacoes        = $problema->confirmacao->groupBy('tipo_confirmacao');
+        $problema->votos_pos = $confirmacoes[self::CONFIRMACOES_POSITIVAS]->count();
+        $problema->votos_neg = $confirmacoes[self::CONFIRMACOES_NEGATIVAS]->count();
+
+        unset($problema->confirmacao);
+
         return $this->showResponse($problema);
     }
 

@@ -13,6 +13,7 @@ class Problema extends Model
     public $timestamps = true;
     protected $guarded  = ['id'];
     protected $fillable = [
+        'titulo',
         'usuario_id',
         'tipo_problema_id',
         'descricao',
@@ -47,6 +48,7 @@ class Problema extends Model
 
         return DB::select("SELECT 
                         p.id as problema_id, 
+                        p.titulo,
                         p.usuario_id, 
                         p.descricao, 
                         ST_X(geom::geometry) as lon, 

@@ -13,8 +13,8 @@ class ProblemaController extends Controller
 {
 
     const MODEL = 'App\Problema';
-    const CONFIRMACOES_POSITIVAS = 0;
-    const CONFIRMACOES_NEGATIVAS = 1;
+    const CONFIRMACOES_POSITIVAS = 1;
+    const CONFIRMACOES_NEGATIVAS = 2;
 
     use RestControllerTrait;
 

@@ -32,15 +32,17 @@ class Problema extends Model
     }
 
     public static function storeProblema($problema) {
-        $lat = $problema['lat'];
-        $lon = $problema['lon'];
-
-        $problema['geom']      = DB::select("SELECT ST_MakePoint($lat, $lon)")[0];
-        $problema['resolvido'] = false;
-
-        unset($problema['lon'], $problema['lat']);
-        
-        return Problema::create($problema);
+        $problema =  (Object) [
+            'titulo'    => $params['titulo'],
+            'usuario'   => $params['usuario_id'],
+            'tipo'      => $params['tipo_problema_id'],
+            'descricao' => $params['descricao'],
+            'resolvido' => 'false',
+            'x'         => $params['lon'],
+            'y'         => $params['lat']
+        ];
+        return DB::insert("INSERT INTO problemas(usuario_id, tipo_problema_id, descricao, resolvido, created_at, updated_at, geom)
+            values ($problema->usuario, $problema->tipo, '$problema->descricao', $problema->resolvido, now(), now(), ST_MakePoint($problema->x, $problema->y));");
     }
 
     public static function showProblema($id = false) {
@@ -50,7 +52,7 @@ class Problema extends Model
                         p.id as problema_id, 
                         p.titulo,
                         p.usuario_id, 
-                        p.descricao, 
+                        p.descricao,
                         ST_X(geom::geometry) as lon, 
                         ST_Y(geom::geometry) as lat,
                         count(CASE WHEN tipo_confirmacao = 0 THEN 1 ELSE NULL END) as votos_pos, 

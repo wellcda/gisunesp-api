@@ -31,7 +31,8 @@ class Problema extends Model
         return $this->hasMany('App\Confirmacao');
     }
 
-    public static function storeProblema($params) {
+    public static function storeProblema($params) 
+    {
         $problema =  (Object) [
             'titulo'    => $params['titulo'],
             'usuario'   => $params['usuario_id'],
@@ -45,7 +46,8 @@ class Problema extends Model
             values ('$problema->titulo', $problema->usuario, $problema->tipo, '$problema->descricao', $problema->resolvido, now(), now(), ST_MakePoint($problema->x, $problema->y));");
     }
 
-    public static function showProblema($id = false) {
+    public static function showProblema($id = false) 
+    {
         $filters = $id? " AND p.id = $id " : "";
 
         return DB::select("SELECT 

@@ -9,6 +9,9 @@ use DB;
 
 class Problema extends Model
 {
+    const CONFIRMACOES_POSITIVAS = 1;
+    const CONFIRMACOES_NEGATIVAS = 2;
+    
     protected $table   = 'problemas';
     public $timestamps = true;
     protected $guarded  = ['id'];
@@ -49,6 +52,8 @@ class Problema extends Model
     public static function showProblema($id = false) 
     {
         $filters = $id? " AND p.id = $id " : "";
+        $confirmacoes_positivas = self::CONFIRMACOES_POSITIVAS;
+        $confirmacoes_negativas = self::CONFIRMACOES_NEGATIVAS;
 
         return DB::select("SELECT 
                         p.id as problema_id, 
@@ -57,8 +62,8 @@ class Problema extends Model
                         p.descricao,
                         ST_X(geom::geometry) as lon, 
                         ST_Y(geom::geometry) as lat,
-                        count(CASE WHEN tipo_confirmacao = 0 THEN 1 ELSE NULL END) as votos_pos, 
-                        count(CASE WHEN tipo_confirmacao = 1 THEN 1 ELSE NULL END) as votos_neg
+                        count(CASE WHEN tipo_confirmacao = $confirmacoes_positivas THEN 1 ELSE NULL END) as votos_pos,
+                        count(CASE WHEN tipo_confirmacao = $confirmacoes_negativas THEN 1 ELSE NULL END) as votos_neg
                     FROM problemas p
                     LEFT JOIN confirmacoes c on c.problema_id = p.id
                     WHERE geom is not null

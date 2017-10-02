@@ -31,7 +31,7 @@ class Problema extends Model
         return $this->hasMany('App\Confirmacao');
     }
 
-    public static function storeProblema($problema) {
+    public static function storeProblema($params) {
         $problema =  (Object) [
             'titulo'    => $params['titulo'],
             'usuario'   => $params['usuario_id'],
@@ -41,8 +41,8 @@ class Problema extends Model
             'x'         => $params['lon'],
             'y'         => $params['lat']
         ];
-        return DB::insert("INSERT INTO problemas(usuario_id, tipo_problema_id, descricao, resolvido, created_at, updated_at, geom)
-            values ($problema->usuario, $problema->tipo, '$problema->descricao', $problema->resolvido, now(), now(), ST_MakePoint($problema->x, $problema->y));");
+        return DB::insert("INSERT INTO problemas(titulo, usuario_id, tipo_problema_id, descricao, resolvido, created_at, updated_at, geom)
+            values ('$problema->titulo', $problema->usuario, $problema->tipo, '$problema->descricao', $problema->resolvido, now(), now(), ST_MakePoint($problema->x, $problema->y));");
     }
 
     public static function showProblema($id = false) {

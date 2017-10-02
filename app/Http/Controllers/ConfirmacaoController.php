@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Traits\RestControllerTrait;
+use App\Confirmacao as Confirmacao;
 
 class ConfirmacaoController extends Controller
 {
@@ -19,7 +20,17 @@ class ConfirmacaoController extends Controller
     {
     }
 
-    public function showAll() {
-        return $this->showResponse(Confirmacao::all());
+    public function storeConfirmacao($id, Request $request) 
+    {
+        
+        try {
+            $params = $request->all();
+            $params['problema_id'] = $id;
+            return $this->createdResponse(Confirmacao::create($params));
+        } catch(\Exception $ex) {
+            $data = ['exception' => $ex->getMessage()];
+            return $this->clientErrorResponse($data);
+        }
+   
     }
 }

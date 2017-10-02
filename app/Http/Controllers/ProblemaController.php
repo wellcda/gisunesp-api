@@ -32,11 +32,13 @@ class ProblemaController extends Controller
         return $this->showResponse(Problema::showProblema($id));
     }
 
-    public function showProblemas() {
+    public function showProblemas() 
+    {
         return $this->showResponse(Problema::showProblema());
     }
 
-    public function storeProblema(Request $request) {
+    public function storeProblema(Request $request) 
+    {
         try {
             return $this->createdResponse(Problema::storeProblema($request->all()));
         } catch (\Exception $ex) {

@@ -49,9 +49,10 @@ class Problema extends Model
             values ('$problema->titulo', $problema->usuario, $problema->tipo, '$problema->descricao', $problema->resolvido, now(), now(), ST_MakePoint($problema->x, $problema->y));");
     }
 
-    public static function showProblema($id = false) 
+    public static function showProblema($problemaId = false, $usuarioId = false) 
     {
-        $filters = $id? " AND p.id = $id " : "";
+        $filtrarProblema = $problemaId? " AND p.id = $problemaId " : "";
+        $filtarUsuario   = $usuarioId? " AND p.usuario_id = $usuarioId " : "";
         $confirmacoes_positivas = self::CONFIRMACOES_POSITIVAS;
         $confirmacoes_negativas = self::CONFIRMACOES_NEGATIVAS;
 
@@ -67,9 +68,10 @@ class Problema extends Model
                     FROM problemas p
                     LEFT JOIN confirmacoes c on c.problema_id = p.id
                     WHERE geom is not null
-                    $filters
+                    $filtrarProblema
+                    $filtarUsuario
                     GROUP by p.id, p.descricao
-                    ORDER BY p.id
+                    ORDER BY p.created_at DESC
                 ");
     }
 

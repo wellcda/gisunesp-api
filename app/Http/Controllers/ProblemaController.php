@@ -27,14 +27,19 @@ class ProblemaController extends Controller
     {
     }
 
-    public function showProblema($id)
+    public function showProblema($problemaId)
     {   
-        return $this->showResponse(Problema::showProblema($id));
+        return $this->showResponse(Problema::showProblema($problemaId));
     }
 
     public function showProblemas() 
     {
         return $this->showResponse(Problema::showProblema());
+    }
+
+    public function showProblemasPorUsuario($usuarioId) 
+    {
+        return $this->showResponse(Problema::showProblema(false, $usuarioId));
     }
 
     public function storeProblema(Request $request) 

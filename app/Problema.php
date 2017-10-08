@@ -49,12 +49,26 @@ class Problema extends Model
             values ('$problema->titulo', $problema->usuario, $problema->tipo, '$problema->descricao', $problema->resolvido, now(), now(), ST_MakePoint($problema->x, $problema->y));");
     }
 
-    public static function showProblema($problemaId = false, $usuarioId = false) 
+    public static function showProblema($problemaId = false, $usuarioId = false, $orderParams = []) 
     {
         $filtrarProblema = $problemaId? " AND p.id = $problemaId " : "";
         $filtarUsuario   = $usuarioId? " AND p.usuario_id = $usuarioId " : "";
         $confirmacoes_positivas = self::CONFIRMACOES_POSITIVAS;
         $confirmacoes_negativas = self::CONFIRMACOES_NEGATIVAS;
+
+        if (isset($orderParams['order_antigos'])) {
+            $orderBy = 'ORDER BY p.created_at ASC ';
+        } else {
+            $orderBy = 'ORDER BY p.created_at DESC ';
+        }
+
+        if (isset($orderParams['order_votos_pos'])) {
+            $orderBy = $orderBy . ', votos_pos DESC ';
+        }
+
+        if (isset($orderParams['order_votos_neg'])) {
+            $orderBy = $orderBy . ', votos_neg DESC ';
+        }
 
         return DB::select("SELECT 
                         p.id as problema_id, 
@@ -71,7 +85,7 @@ class Problema extends Model
                     $filtrarProblema
                     $filtarUsuario
                     GROUP by p.id, p.descricao
-                    ORDER BY p.created_at DESC
+                    $orderBy
                 ");
     }
 

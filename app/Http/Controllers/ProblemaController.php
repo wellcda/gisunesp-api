@@ -32,9 +32,9 @@ class ProblemaController extends Controller
         return $this->showResponse(Problema::showProblema($problemaId));
     }
 
-    public function showProblemas() 
+    public function showProblemas(Request $request) 
     {
-        return $this->showResponse(Problema::showProblema());
+        return $this->showResponse(Problema::showProblema(false, false, $request->all()));
     }
 
     public function showProblemasPorUsuario($usuarioId) 

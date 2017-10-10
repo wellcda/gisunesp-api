@@ -25,9 +25,9 @@ class ConfirmacaoController extends Controller
     {
         
         try {
-            $params = $request->all();
-            $params['problema_id'] = $id;
-            $novaConfirmacao = Confirmacao::create($params);
+            $confirmacao = $request->all();
+            $confirmacao['problema_id'] = $id;
+            $novaConfirmacao = Confirmacao::updateOrCreate(['problema_id' => $id, 'usuario_id' => $confirmacao['usuario_id']], $confirmacao);
             return $this->createdResponse(Problema::showProblema($id));
         } catch(\Exception $ex) {
             $data = ['exception' => $ex->getMessage()];

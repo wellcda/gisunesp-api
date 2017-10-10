@@ -25,19 +25,16 @@ class ConfirmacaoController extends Controller
     {
         
         try {
-            $descricao;
             $confirmacaoRecebida = $request->all();
             $confirmacaoRecebida['problema_id'] = $id;
             
             if (Confirmacao::where($confirmacaoRecebida)->exists()) {
                 Confirmacao::where($confirmacaoRecebida)->delete();
-                $descricao = 'Voto excluído';                
             } else {
                 Confirmacao::updateOrCreate(['problema_id' => $id, 'usuario_id' => $confirmacaoRecebida['usuario_id']], $confirmacaoRecebida);
-                $descricao = 'Voto adicionado';
             }
-
-            return $this->createdResponse(['problema' => Problema::showProblema($id), 'descricao' => $descricao]);
+            
+            return $this->createdResponse(Problema::showProblema($id));
         } catch(\Exception $ex) {
             $data = ['exception' => $ex->getMessage()];
             return $this->clientErrorResponse($data);

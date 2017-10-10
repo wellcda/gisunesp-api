@@ -55,19 +55,18 @@ class Problema extends Model
         $filtarUsuario   = $usuarioId? " AND p.usuario_id = $usuarioId " : "";
         $confirmacoes_positivas = self::CONFIRMACOES_POSITIVAS;
         $confirmacoes_negativas = self::CONFIRMACOES_NEGATIVAS;
+        $orderBy = '';
 
         if (isset($orderParams['order_antigos'])) {
             $orderBy = 'ORDER BY p.created_at ASC ';
-        } else {
-            $orderBy = 'ORDER BY p.created_at DESC ';
         }
 
         if (isset($orderParams['order_votos_pos'])) {
-            $orderBy = $orderBy . ', votos_pos DESC ';
+            $orderBy = 'ORDER BY votos_pos DESC ';
         }
 
         if (isset($orderParams['order_votos_neg'])) {
-            $orderBy = $orderBy . ', votos_neg DESC ';
+            $orderBy = 'ORDER BY votos_neg DESC ';
         }
 
         return DB::select("SELECT 

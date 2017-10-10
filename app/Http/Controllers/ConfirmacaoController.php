@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Traits\RestControllerTrait;
 use App\Confirmacao as Confirmacao;
+use App\Problema as Problema;
 
 class ConfirmacaoController extends Controller
 {
@@ -24,9 +25,10 @@ class ConfirmacaoController extends Controller
     {
         
         try {
-            $params = $request->all();
-            $params['problema_id'] = $id;
-            return $this->createdResponse(Confirmacao::create($params));
+            $confirmacao = $request->all();
+            $confirmacao['problema_id'] = $id;
+            $novaConfirmacao = Confirmacao::updateOrCreate(['problema_id' => $id, 'usuario_id' => $confirmacao['usuario_id']], $confirmacao);
+            return $this->createdResponse(Problema::showProblema($id));
         } catch(\Exception $ex) {
             $data = ['exception' => $ex->getMessage()];
             return $this->clientErrorResponse($data);

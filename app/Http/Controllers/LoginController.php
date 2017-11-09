@@ -54,25 +54,11 @@ class LoginController extends Controller
 
         if (!array_key_exists("error", $respostaAuth)) {
             $user  = User::where('email', '=', $request->email)->first();
+            $user->access_token = $respostaAuth->access_token;
 
-            $respostaLogin  = [
-                'user_info'      => $user->toArray(),
-                'user_auth_info' => $respostaAuth,
-            ];
-
-            return $this->listResponse($respostaLogin);
+            return $this->listResponse($user);
         } else {
             return $this->unauthorizedErrorResponse($respostaAuth);
-        }
-    }
-
-    protected function invalidateOldTokens($user, $all = false)
-    {
-        $userTokens = $user->tokens;
-        foreach($userTokens as $key => $token) {
-            if ($key != 0 || $all) {
-                $token->revoke();
-            }
         }
     }
 }

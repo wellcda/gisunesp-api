@@ -7,6 +7,7 @@ use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 
+
 class ConfirmacaoRecebida extends Notification
 {
     use Queueable;
@@ -16,9 +17,9 @@ class ConfirmacaoRecebida extends Notification
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($confirmacao = null)
     {
-        //
+        $this->confirmacao = $confirmacao;
     }
 
     /**
@@ -55,7 +56,11 @@ class ConfirmacaoRecebida extends Notification
     public function toArray($notifiable)
     {
         return [
-            'usuario_id'    => $notifiable->id
+            'usuario_id'             => $notifiable->id,
+            'confirmacao_id'         => $this->confirmacao->id,
+            'problema_id'            => $this->confirmacao->problema_id,
+            'tipo_confirmacao'       => $this->confirmacao->tipo_confirmacao,
+            'usuario_confirmacao_id' => $this->confirmacao->usuario_id
         ];
     }
 }

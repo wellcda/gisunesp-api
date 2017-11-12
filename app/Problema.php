@@ -49,7 +49,7 @@ class Problema extends Model
             values ('$problema->titulo', $problema->usuario, $problema->tipo, '$problema->descricao', $problema->resolvido, now(), now(), ST_MakePoint($problema->x, $problema->y));");
     }
 
-    public static function showProblema($problemaId = false, $usuarioId = false, $orderParams = []) 
+    public static function getFromDB($problemaId = false, $usuarioId = false, $orderParams = []) 
     {
         $filtrarProblema = $problemaId? " AND p.id = $problemaId " : "";
         $filtarUsuario   = $usuarioId? " AND p.usuario_id = $usuarioId " : "";

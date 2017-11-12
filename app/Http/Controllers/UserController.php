@@ -33,5 +33,12 @@ class UserController extends Controller
         return $this->createdResponse($user);
     }
 
+    public function getNotificacoesNaoLidas(Request $request) {
+        $user = $request->user();
+        $user->unreadNotifications;
+        dd($user->notifications);
+        return $this->listResponse($user->unreadNotifications);
+    }
+
 
 }

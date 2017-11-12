@@ -31,6 +31,8 @@ Route::middleware(['auth:api'])->group(function () {
 	Route::get('/usuarios/{id}', 'UserController@show');
 	Route::delete('/usuarios/{id}', 'UserController@destroy');
 	Route::patch('/usuarios/{id}', 'UserController@update');
+
+	Route::get('/usuario/notificacoes', 'UserController@getNotificacoesNaoLidas');
 });
 
 Route::post('/usuarios', 'UserController@store');

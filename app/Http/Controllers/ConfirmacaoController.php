@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Notification;
 use App\Http\Traits\RestControllerTrait;
 use App\Confirmacao as Confirmacao;
 use App\Problema as Problema;
@@ -42,15 +43,16 @@ class ConfirmacaoController extends Controller
             } else {
                 $confirmacao = Confirmacao::updateOrCreate(['problema_id' => $id, 'usuario_id' => $confirmacaoRecebida['usuario_id']], $confirmacaoRecebida);
                 
-                $idUsuariosInteressados = Confirmacao::select('usuario_id')->where('problema_id', $id)->get()->map(function ($usuario) {
-                    return $usuario->id;
-                });
+                $idUsuariosInteressados = Confirmacao::select('usuario_id')->where('problema_id', $id)->pluck('usuario_id');
+                $notificacao = new ConfirmacaoRecebida($confirmacao);
                 
                 $usuarioProblema = Usuario::find($problema->usuario_id);
+                $usuarioProblema->notify($notificacao);
+                
                 $usuariosInteressados = Usuario::whereIn('id', $idUsuariosInteressados)->get();
                 $usuariosInteressados->merge([$usuarioProblema]);
-
-                \Notification::send($usuariosInteressados, new ConfirmacaoRecebida($confirmacao));
+                 
+                Notification::send($usuariosInteressados, new ConfirmacaoRecebida($confirmacao));                
             }
             
 

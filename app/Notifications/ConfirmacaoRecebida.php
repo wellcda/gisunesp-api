@@ -19,7 +19,8 @@ class ConfirmacaoRecebida extends Notification
      */
     public function __construct($confirmacao = null)
     {
-        $this->confirmacao = $confirmacao;
+        if ($confirmacao)
+            $this->confirmacao = $confirmacao;
     }
 
     /**

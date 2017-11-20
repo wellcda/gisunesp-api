@@ -14,14 +14,18 @@ class Problema extends Model
     
     protected $table   = 'problemas';
     public $timestamps = true;
-    protected $guarded  = ['id'];
+    
+    protected $guarded  = [
+        'id', 
+        'resolvido'
+    ];
     protected $fillable = [
         'titulo',
         'usuario_id',
         'tipo_problema_id',
-        'descricao',
-        'resolvido'
+        'descricao'
     ];
+
     protected $hidden   = ['geom'];
     protected $postgisFields = ['geom'];
 
@@ -34,19 +38,37 @@ class Problema extends Model
         return $this->hasMany('App\Confirmacao');
     }
 
-    public static function storeProblema($params) 
+    public static function storeProblema($dadosProblema) 
     {
         $problema =  (Object) [
-            'titulo'    => $params['titulo'],
-            'usuario'   => $params['usuario_id'],
-            'tipo'      => $params['tipo_problema_id'],
-            'descricao' => $params['descricao'],
+            'titulo'    => $dadosProblema['titulo'],
+            'usuario'   => $dadosProblema['usuario_id'],
+            'tipo'      => $dadosProblema['tipo_problema_id'],
+            'descricao' => $dadosProblema['descricao'],
             'resolvido' => 'false',
-            'x'         => $params['lon'],
-            'y'         => $params['lat']
+            'x'         => $dadosProblema['lon'],
+            'y'         => $dadosProblema['lat']
         ];
-        return DB::insert("INSERT INTO problemas(titulo, usuario_id, tipo_problema_id, descricao, resolvido, created_at, updated_at, geom)
-            values ('$problema->titulo', $problema->usuario, $problema->tipo, '$problema->descricao', $problema->resolvido, now(), now(), ST_MakePoint($problema->x, $problema->y));");
+
+        return DB::insert("INSERT INTO problemas(
+                titulo, 
+                usuario_id, 
+                tipo_problema_id, 
+                descricao, 
+                resolvido, 
+                created_at, 
+                updated_at, 
+                geom)
+            values (
+                '$problema->titulo', 
+                $problema->usuario, 
+                $problema->tipo, 
+                '$problema->descricao', 
+                $problema->resolvido, 
+                now(), 
+                now(), 
+                ST_MakePoint($problema->x, $problema->y)
+            );");
     }
 
     public static function getFromDB($problemaId = false, $usuarioId = false, $orderParams = []) 

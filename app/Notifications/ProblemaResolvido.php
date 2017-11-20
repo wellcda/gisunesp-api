@@ -29,7 +29,7 @@ class ProblemaResolvido extends Notification
      */
     public function via($notifiable)
     {
-        return ['mail'];
+        return ['database'];
     }
 
     /**
@@ -55,7 +55,7 @@ class ProblemaResolvido extends Notification
     public function toArray($notifiable)
     {
         return [
-            //
+            'usuario_id' => $notifiable->id
         ];
     }
 }

@@ -23,7 +23,8 @@ Route::middleware(['auth:api'])->group(function () {
 	Route::get('/problema/{id}',  'ProblemaController@showProblema');
 	Route::get('/problemas/usuario/{id}', 'ProblemaController@showProblemasPorUsuario');
 	Route::delete('/problema/{id}', 'ProblemaController@destroy');
-	Route::patch('/problema/{id}', 'ProblemaController@update');
+	// Route::patch('/problema/{id}', 'ProblemaController@update');
+	Route::patch('/problema/{id}/resolve', 'ProblemaController@resolveProblema');
 
 	Route::post('/tipoproblema', 'TipoProblemaController@store');
 

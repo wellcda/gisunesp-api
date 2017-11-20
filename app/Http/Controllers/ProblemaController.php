@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Problema as Problema;
 use App\Confirmacao as Confirmacao;
+use App\User as User;
+use App\Notifications\ProblemaResolvido;
 
 class ProblemaController extends Controller
 {
@@ -47,10 +49,24 @@ class ProblemaController extends Controller
         try {
             return $this->createdResponse(Problema::storeProblema($request->all()));
         } catch (\Exception $ex) {
-            $data = ['exception' => $ex->getMessage()];
             return $this->clientErrorResponse($data);
         }
         
+    }
+
+    public function resolveProblema($id)
+    {
+        try {
+            $problema = Problema::findOrFail($id);
+            $problema->resolvido = !$problema->resolvido;
+            $problema->save();
+
+            User::find($problema->usuario_id)->notify(new ProblemaResolvido());
+
+            return $this->listResponse($problema);
+        } catch (\Exception $ex) {
+            return $this->notFoundResponse();
+        }
     }
 
 }

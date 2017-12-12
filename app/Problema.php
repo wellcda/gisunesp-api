@@ -74,7 +74,7 @@ class Problema extends Model
     public static function getFromDB($problemaId = false, $usuarioId = false, $orderParams = []) 
     {
         $filtrarProblema = $problemaId? " AND p.id = $problemaId " : "";
-        $filtarUsuario   = $usuarioId? " AND p.usuario_id = $usuarioId " : "";
+        $filtarUsuario   = $usuarioId? " AND p.usuario_id = $usuarioId OR c.usuario_id = $usuarioId" : "";
         $confirmacoes_positivas = self::CONFIRMACOES_POSITIVAS;
         $confirmacoes_negativas = self::CONFIRMACOES_NEGATIVAS;
         $orderBy = '';

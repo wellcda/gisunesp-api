@@ -21,7 +21,7 @@ Route::middleware(['auth:api'])->group(function () {
 	Route::post('/problema', 'ProblemaController@storeProblema');
 	Route::post('/problema/{id}/confirmacao', 'ConfirmacaoController@storeConfirmacao');
 	Route::get('/problema/{id}',  'ProblemaController@showProblema');
-	Route::get('/problemas/usuario/{id}', 'ProblemaController@showProblemasPorUsuario');
+	Route::get('/problemas/usuario', 'ProblemaController@showProblemasPorUsuario');
 	Route::delete('/problema/{id}', 'ProblemaController@destroy');
 	// Route::patch('/problema/{id}', 'ProblemaController@update');
 	Route::patch('/problema/{id}/resolve', 'ProblemaController@resolveProblema');

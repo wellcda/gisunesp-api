@@ -39,15 +39,18 @@ class ProblemaController extends Controller
         return $this->showResponse(Problema::getFromDB(false, false, $request->all()));
     }
 
-    public function showProblemasPorUsuario($usuarioId) 
+    public function showProblemasPorUsuario(Request $request) 
     {
+        $usuarioId = $request->user()->id;
         return $this->showResponse(Problema::getFromDB(false, $usuarioId));
     }
 
     public function storeProblema(Request $request) 
     {
         try {
-            return $this->createdResponse(Problema::storeProblema($request->all()));
+            $dados = $request->all();
+            $dados['usuario_id'] = $request->user()->id;
+            return $this->createdResponse(Problema::storeProblema($dados));
         } catch (\Exception $ex) {
             return $this->clientErrorResponse($data);
         }

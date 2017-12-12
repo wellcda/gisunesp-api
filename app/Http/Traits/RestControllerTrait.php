@@ -68,15 +68,12 @@ trait RestControllerTrait
             return $this->notFoundResponse();
         }
         try {
-            $v = \Validator::make($request->all(), $this->validationPatchRules);
-            if($v->fails()) {
-                throw new \Exception("ValidationException");
-            }
+
             $data->fill($request->all());
             $data->save();
             return $this->showResponse($data);
         } catch(\Exception $ex) {
-            $data = ['form_validations' => $v->errors(), 'exception' => $ex->getMessage()];
+            $data = ['exception' => $ex->getMessage()];
             return $this->clientErrorResponse($data);
         }
     }

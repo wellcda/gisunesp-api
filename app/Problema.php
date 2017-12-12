@@ -95,7 +95,7 @@ class Problema extends Model
                         p.id as problema_id, 
                         p.titulo,
                         p.usuario_id, 
-                        p.descricao,
+                        p.descricao, p.resolvido,
                         ST_X(geom::geometry) as lon, 
                         ST_Y(geom::geometry) as lat,
                         count(CASE WHEN tipo_confirmacao = $confirmacoes_positivas THEN 1 ELSE NULL END) as votos_pos,

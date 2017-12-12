@@ -60,6 +60,8 @@ class ProblemaController extends Controller
             $problema = Problema::findOrFail($id);
             $problema->resolvido = !$problema->resolvido;
             $problema->save();
+	    Confirmacao::where('problema_id', $problema->id)->delete();
+
 
             User::find($problema->usuario_id)->notify(new ProblemaResolvido());
 

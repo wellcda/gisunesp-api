@@ -34,7 +34,7 @@ class UserController extends Controller
     }
 
     public function getNotificacoesNaoLidas(Request $request) {
-        return $this->listResponse($request->user()->unreadNotifications);        
+        return $this->listResponse($request->user()->unreadNotifications->markAsRead());
     }
 
     public function trocaStatusNotificacao(Request $request) {
